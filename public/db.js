@@ -1,8 +1,61 @@
+
+// let db;
+// // const request = window.indexedDB.open("budgetDB", 1);
+
+//   // Create schema
+//   request.onupgradeneeded = event => {
+//     db = event.target.result;
+
+//     // Creates an object store with a listID keypath that can be used to query on.
+//     const budgetStore = db.createObjectStore("budgetStore", { autoIncrement: true });
+//     // Creates a statusIndex that we can query on.
+//     budgetStore.createIndex("valueIndex", "value");
+//     console.log(db)
+//   };
+
+//   // Opens a transaction, accesses the budgetStore objectStore and statusIndex.
+//   request.onsuccess = () => {
+//     db = request.result;
+//     console.log(db)
+//     const transaction = db.transaction(["budgetStore"], "readwrite");
+//     const budgetStore = transaction.objectStore("budgetStore");
+//     const getAll = budgetStore.getAll();
+
+//     getAll.onsuccess = function () {
+//       // If there are items in the store, we need to bulk add them when we are back online
+//       if (getAll.result.length > 0) {
+//         fetch('/api/transaction/bulk', {
+//           method: 'POST',
+//           body: JSON.stringify(getAll.result),
+//           headers: {
+//             Accept: 'application/json, text/plain, */*',
+//             'Content-Type': 'application/json',
+//           },
+//         })
+//           .then((response) => response.json())
+//           .then((res) => {
+//             // If our returned response is not empty
+//             if (res.length !== 0) {
+//               // Open another transaction to BudgetStore with the ability to read and write
+//               transaction = db.transaction(['BudgetStore'], 'readwrite');
+  
+//               // Assign the current store to a variable
+//               const currentStore = transaction.objectStore('BudgetStore');
+  
+//               // Clear existing entries because our bulk add was successful
+//               currentStore.clear();
+//               console.log('Clearing store 🧹');
+//             }
+//           });
+//       }
+//     }
+//   };
+
 let db;
 let budgetVersion;
 
 // Create a new db request for a "budget" database.
-const request = indexedDB.open('BudgetDB', budgetVersion || 21);
+const request = window.indexedDB.open('budgetDB', budgetVersion || 21);
 
 request.onupgradeneeded = function (e) {
   console.log('Upgrade needed in IndexDB');
@@ -13,6 +66,7 @@ request.onupgradeneeded = function (e) {
   console.log(`DB Updated from version ${oldVersion} to ${newVersion}`);
 
   db = e.target.result;
+  console.log(db)
 
   if (db.objectStoreNames.length === 0) {
     db.createObjectStore('BudgetStore', { autoIncrement: true });
@@ -83,11 +137,11 @@ const saveRecord = (record) => {
   const transaction = db.transaction(['BudgetStore'], 'readwrite');
 
   // Access your BudgetStore object store
-  const store = transaction.objectStore('BudgetStore');
+  const budgetStore = transaction.objectStore('BudgetStore');
 
   // Add record to your store with add method.
-  store.add(record);
+  budgetStore.add(record);
 };
 
-// Listen for app coming back online
+// // Listen for app coming back online
 window.addEventListener('online', checkDatabase);
