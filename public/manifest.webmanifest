@@ -1,0 +1,20 @@
+{
+  "name": "Penny Wise PWA",
+  "short_name": "Penny Wise",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#cadbda",
+  "theme_color": "#cadbda",
+  "icons": [
+    {
+      "src": "icons/money-icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/money-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
