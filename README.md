@@ -31,18 +31,18 @@
 
 ### Description
 
-This application uses Indexed Databases to simulate a financial planner that is able to log transactions with or without an internet connection.
+This Progressive Web Application uses Indexed Database, Service Worker and Web Manifest to simulate a financial transaction recorder that is able to log transactions with or without an internet connection.
 
 ### Built With
 
-Following languages, frameworks and libraries were used in the development of this project:
+Following languages, frameworks, libraries and technologies were used in the development of this PWA:
 
-- HTML, CSS, JavaScript
-- NodeJS, Express, MongoDB
+- HTML, CSS, JavaScript.
+- NodeJS, Express, MongoDB, IndexedDB, Service Worker, Web Manifest.
 
 ### Installation
 
-The application is deployed on Heroku, so no installation required.
+The application is deployed on Heroku, so no installation required. You may however install it as a Progressive Web Application to your device. Use Chrome for Desktop and Android, and Safari for iOS.
 
 ### Usage
 
